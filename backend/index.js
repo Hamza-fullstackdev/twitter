@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import { config } from "./config/config.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import authRouter from "./routes/auth.route.js";
 
 const app = express();
 const PORT = config.PORT || 5000;
@@ -28,6 +29,8 @@ app.use(
     optionsSuccessStatus: 200,
   })
 );
+
+app.use("/api/auth", authRouter);
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
