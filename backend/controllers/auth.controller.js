@@ -1,3 +1,4 @@
+import { config } from "../config/config.js";
 import User from "../models/user.model.js";
 import errorHandler from "../utils/errorHandler.util.js";
 import { generateTokenAndSendCookie } from "../utils/generateToken.util.js";
@@ -61,4 +62,11 @@ export const loginUser = async (req, res, next) => {
   }
 };
 
-export const logoutUser = async (req, res, next) => {};
+export const logoutUser = async (req, res, next) => {
+  try {
+    res.clearCookie(config.COOKIE_SECRET_TOKEN);
+    res.status(200).json({ message: "User logged out Successfully" });
+  } catch (error) {
+    next(error);
+  }
+};

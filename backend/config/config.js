@@ -7,6 +7,7 @@ const _config = {
   JWT_SECRET_TOKEN: process.env.JWT_SECRET_TOKEN,
   JWT_EXPIRATION_TIME: process.env.JWT_EXPIRATION_TIME,
   NODE_ENV: process.env.NODE_ENV,
+  COOKIE_SECRET_TOKEN: process.env.COOKIE_SECRET_TOKEN,
 };
 
 export const config = Object.freeze(_config);

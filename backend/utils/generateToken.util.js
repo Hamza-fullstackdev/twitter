@@ -4,10 +4,10 @@ export const generateTokenAndSendCookie = (userId, res) => {
   const token = jwt.sign({ userId }, config.JWT_SECRET_TOKEN, {
     expiresIn: `${config.JWT_EXPIRATION_TIME}d`,
   });
-  res.cookie("jwt", token, {
+  res.cookie(config.COOKIE_SECRET_TOKEN, token, {
     maxAge: config.JWT_EXPIRATION_TIME * 24 * 60 * 60 * 1000,
     httpOnly: true,
     sameSite: "strict",
-    secure: process.env.NODE_ENV !== "development",
+    secure: config.NODE_ENV !== "development",
   });
 };
