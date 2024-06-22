@@ -45,6 +45,7 @@ export const loginUser = async (req, res, next) => {
   if (!username || !password)
     return next(errorHandler(400, "All fields are required"));
   const existingUser = await User.findOne({ username });
+  if(!existingUser) return next(errorHandler(400, "Please enter correct username"));
   try {
     if (existingUser) {
       const isMatch = await bcrypt.compare(password, existingUser.password);
