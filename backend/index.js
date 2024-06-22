@@ -6,6 +6,7 @@ import cors from "cors";
 import { v2 as cloudinary } from "cloudinary";
 import authRouter from "./routes/auth.route.js";
 import userRouter from "./routes/user.route.js";
+import postRouter from "./routes/post.route.js";
 
 const app = express();
 const PORT = config.PORT || 5000;
@@ -39,6 +40,7 @@ app.use(
 
 app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
+app.use("/api/post", postRouter);
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
