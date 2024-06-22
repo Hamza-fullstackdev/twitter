@@ -10,8 +10,8 @@ import {
 const router = express.Router();
 
 router.post("/create", verifyToken, createPost);
-router.post("like/:id", verifyToken, likeUnlikePost);
-router.post("comment/:id", verifyToken, commentPost);
+router.post("/like/:id", verifyToken, likeUnlikePost);
+router.post("/comment/:id", verifyToken, commentPost);
 router.delete("/delete/:id", verifyToken, deletePost);
 
 export default router;
