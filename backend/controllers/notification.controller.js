@@ -13,3 +13,13 @@ export const getNotifications = async (req, res, next) => {
     next(error);
   }
 };
+
+export const deleteNotifications = async (req, res, next) => {
+  try {
+    const userId = req.user._id;
+    await Notification.deleteMany({ to: userId });
+    res.status(200).json({ message: "All notifications deleted successfully" });
+  } catch (error) {
+    next(error);
+  }
+};
