@@ -138,6 +138,25 @@ export const deletePost = async (req, res, next) => {
   }
 };
 
+export const getUserPosts = async (req, res, next) => {
+  const { username } = req.params;
+  try {
+    const user = await User.findOne({ username: username });
+    if (!user) return next(errorHandler(400, "User not found"));
+
+    const posts = await Post.find({ user: user._id })
+      .sort({ createdAt: -1 })
+      .populate("user")
+      .select("-password")
+      .populate("comments.user")
+      .select("-password");
+
+    res.status(200).json(posts);
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const getFollowingPosts = async (req, res, next) => {
   const userId = req.user._id;
   try {
