@@ -9,6 +9,7 @@ export const profile = async (req, res, next) => {
   try {
     const user = await User.findOne({ username }).select("-password");
     if (!user) return next(errorHandler(400, { message: "User not found" }));
+    res.status(200).json(user);
   } catch (error) {
     next(error);
   }
