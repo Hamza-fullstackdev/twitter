@@ -23,3 +23,22 @@ export const deleteNotifications = async (req, res, next) => {
     next(error);
   }
 };
+
+export const deleteNotification = async (req, res, next) => {
+  const notificationId = req.params.id;
+  const userId = req.user._id;
+  try {
+    const notification = await Notification.findById(notificationId);
+    if (!notification) {
+      return next(errorHandler(400, "Notification not found"));
+    }
+    if (notification.to.toString() !== userId.toString())
+      return next(
+        errorHandler(400, "You are not allowed to delete this notification")
+      );
+    await Notification.findByIdAndDelete(notificationId);
+    res.status(200).json({ message: "Notification deleted successfully" });
+  } catch (error) {
+    next(error);
+  }
+};
