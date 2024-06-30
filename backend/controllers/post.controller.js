@@ -137,3 +137,23 @@ export const deletePost = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getFollowingPosts = async (req, res, next) => {
+  const userId = req.user._id;
+  try {
+    const user = await User.findById(userId);
+    if (!user) return next(errorHandler(400, "User not found"));
+
+    const followingUserIds = user.following;
+    const followingPosts = await Post.find({ user: { $in: followingUserIds } })
+      .sort({ createdAt: -1 })
+      .populate("user")
+      .select("-password")
+      .populate("comments.user")
+      .select("-password");
+
+    res.status(200).json(followingPosts);
+  } catch (error) {
+    next(error);
+  }
+};
