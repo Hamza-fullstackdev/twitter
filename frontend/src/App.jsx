@@ -1,10 +1,12 @@
-import React from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Signup from "./pages/Signup";
 function App() {
   return (
-    <button className='btn btn-primary'>
-      <span className='loading loading-spinner'></span>
-      loading
-    </button>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/signup' Component={Signup} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
